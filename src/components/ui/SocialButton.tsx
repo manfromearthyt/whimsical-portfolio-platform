@@ -1,5 +1,5 @@
 
-import { Instagram, Whatsapp } from "lucide-react";
+import { Instagram, WhatsApp } from "lucide-react";
 
 type SocialButtonProps = {
   type: "instagram" | "whatsapp";
@@ -14,7 +14,7 @@ const SocialButton = ({ type, href, size = 24, className = "" }: SocialButtonPro
       case "instagram":
         return <Instagram size={size} />;
       case "whatsapp":
-        return <Whatsapp size={size} />;
+        return <WhatsApp size={size} />;
       default:
         return null;
     }
