@@ -5,29 +5,30 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Create a dummy client for when credentials are missing
+const dummyClient = {
+  auth: {
+    signInWithPassword: () => Promise.reject(new Error('Supabase credentials not configured')),
+    signUp: () => Promise.reject(new Error('Supabase credentials not configured')),
+    signOut: () => Promise.reject(new Error('Supabase credentials not configured')),
+    resetPasswordForEmail: () => Promise.reject(new Error('Supabase credentials not configured')),
+    updateUser: () => Promise.reject(new Error('Supabase credentials not configured')),
+    getSession: () => Promise.resolve({ data: { session: null } }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
+  }
+};
+
 // Check if credentials are available and provide meaningful error message
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error(
     'Supabase credentials are missing. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.'
   );
-  
-  // Create a dummy client that will show proper error messages when methods are called
-  // This prevents the app from crashing immediately but will show errors when Supabase methods are used
-  export const supabase = {
-    auth: {
-      signInWithPassword: () => Promise.reject(new Error('Supabase credentials not configured')),
-      signUp: () => Promise.reject(new Error('Supabase credentials not configured')),
-      signOut: () => Promise.reject(new Error('Supabase credentials not configured')),
-      resetPasswordForEmail: () => Promise.reject(new Error('Supabase credentials not configured')),
-      updateUser: () => Promise.reject(new Error('Supabase credentials not configured')),
-      getSession: () => Promise.resolve({ data: { session: null } }),
-      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
-    }
-  } as any; // Type assertion to avoid TypeScript errors
-} else {
-  // Create the actual Supabase client
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 }
+
+// Export the appropriate client based on available credentials
+export const supabase = (!supabaseUrl || !supabaseAnonKey) 
+  ? dummyClient as any // Type assertion to avoid TypeScript errors
+  : createClient(supabaseUrl, supabaseAnonKey);
 
 // Authentication helper functions
 export const signIn = async (email: string, password: string) => {
