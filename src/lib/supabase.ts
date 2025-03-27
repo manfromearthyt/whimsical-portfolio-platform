@@ -1,34 +1,11 @@
-
 import { createClient } from '@supabase/supabase-js';
 
-// Get Supabase URL and anon key from environment variables
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Get Supabase URL and anon key from the client.ts file
+const supabaseUrl = "https://sukwzdwszhftxlqbhzys.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN1a3d6ZHdzemhmdHhscWJoenlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMwNjMxNTMsImV4cCI6MjA1ODYzOTE1M30.uSV5mbYNBr0S1_DfgQ-Nqif9gYSA1y_zZCt6mvVcpns";
 
-// Create a dummy client for when credentials are missing
-const dummyClient = {
-  auth: {
-    signInWithPassword: () => Promise.reject(new Error('Supabase credentials not configured')),
-    signUp: () => Promise.reject(new Error('Supabase credentials not configured')),
-    signOut: () => Promise.reject(new Error('Supabase credentials not configured')),
-    resetPasswordForEmail: () => Promise.reject(new Error('Supabase credentials not configured')),
-    updateUser: () => Promise.reject(new Error('Supabase credentials not configured')),
-    getSession: () => Promise.resolve({ data: { session: null } }),
-    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } })
-  }
-};
-
-// Check if credentials are available and provide meaningful error message
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error(
-    'Supabase credentials are missing. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.'
-  );
-}
-
-// Export the appropriate client based on available credentials
-export const supabase = (!supabaseUrl || !supabaseAnonKey) 
-  ? dummyClient as any // Type assertion to avoid TypeScript errors
-  : createClient(supabaseUrl, supabaseAnonKey);
+// Export the Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Authentication helper functions
 export const signIn = async (email: string, password: string) => {
