@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import SocialButton from '../ui/SocialButton';
+import { useAuth } from '@/context/AuthContext';
+import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,19 +46,35 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           <NavLinks />
-          <div className="flex items-center space-x-2">
-            <SocialButton
-              type="instagram"
-              href="https://instagram.com/NixFineArts"
-              size={36}
-              className="hover-lift"
-            />
-            <SocialButton
-              type="whatsapp"
-              href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in your art/classes!")}`}
-              size={36}
-              className="hover-lift"
-            />
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <Button asChild variant="outline" size="sm">
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+            ) : (
+              <>
+                <Button asChild variant="ghost" size="sm">
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button asChild size="sm">
+                  <Link to="/register">Sign Up</Link>
+                </Button>
+              </>
+            )}
+            <div className="flex items-center space-x-2">
+              <SocialButton
+                type="instagram"
+                href="https://instagram.com/NixFineArts"
+                size={36}
+                className="hover-lift"
+              />
+              <SocialButton
+                type="whatsapp"
+                href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in your art/classes!")}`}
+                size={36}
+                className="hover-lift"
+              />
+            </div>
           </div>
         </nav>
 
@@ -89,6 +108,25 @@ const Header = () => {
             </div>
             <nav className="flex flex-col space-y-6">
               <NavLinks mobile={true} />
+              
+              {/* Auth links for mobile */}
+              <div className="flex flex-col space-y-4 pt-4">
+                {user ? (
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                    <Button asChild className="w-full">
+                      <Link to="/register">Sign Up</Link>
+                    </Button>
+                  </>
+                )}
+              </div>
+              
               <div className="flex items-center space-x-4 pt-6">
                 <SocialButton
                   type="instagram"
