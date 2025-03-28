@@ -43,8 +43,8 @@ const About = () => {
           <div className="relative">
             <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-lg image-shine">
               <img 
-                src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=800&q=80" 
-                alt="Nix - Artist and Animator" 
+                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80" 
+                alt="Nix - Digital Artist" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -52,7 +52,7 @@ const About = () => {
               <div className="flex items-center space-x-2">
                 <SocialButton
                   type="instagram"
-                  href="https://instagram.com/NixFineArts"
+                  href="https://www.instagram.com/nix_fine_arts"
                   size={28}
                 />
                 <SocialButton
@@ -66,19 +66,19 @@ const About = () => {
           
           <div>
             <p className="text-lg leading-relaxed mb-6">
-              I'm an artist, animator, wayfarer, and teacher based in Trivandrum, India. Whether I'm creating captivating visuals, crafting engaging animations, exploring new horizons, or inspiring students, my passion lies in bringing creativity to life.
+              I'm a digital artist specializing in portrait art and character design based in Trivandrum, India. My passion lies in creating lifelike digital portraits and unique character designs that capture personality and emotion.
             </p>
             <p className="text-lg leading-relaxed mb-6">
-              My work combines traditional techniques with digital innovation, creating pieces that speak to both cultural heritage and contemporary imagination.
+              My work combines traditional artistic principles with digital techniques, creating pieces that blend realism with creative expression.
             </p>
             <p className="text-lg leading-relaxed mb-8">
-              Connect with me personally on Instagram for collaborations or WhatsApp for inquiries—this is my portfolio.
+              Connect with me on Instagram to see my latest work or reach out via WhatsApp for commission inquiries and collaborations.
             </p>
             
             <div className="flex items-center space-x-4 md:hidden">
               <SocialButton
                 type="instagram"
-                href="https://instagram.com/NixFineArts"
+                href="https://www.instagram.com/nix_fine_arts"
                 size={36}
               />
               <SocialButton

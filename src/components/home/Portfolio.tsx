@@ -3,44 +3,43 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 
-// Sample portfolio items (in a real app, these would come from an API or CMS)
+// Updated portfolio items with real artwork references
 const portfolioItems = [
   {
     id: 1,
-    title: 'Sunset in Kerala',
-    description: 'Watercolor Landscape, 2024',
-    image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80',
+    title: 'Man from Earth',
+    description: 'Digital Portrait, 2024',
+    image: 'https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=1600&q=80',
     type: 'image',
     forSale: true,
   },
   {
     id: 2,
-    title: 'Animated Short: The Journey',
-    description: 'Digital Animation, 2024',
+    title: 'Gaze of the Tigress',
+    description: 'Traditional Art, 2024',
     image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    type: 'video',
-    videoUrl: '#',
+    type: 'image',
     forSale: false,
   },
   {
     id: 3,
-    title: 'Harmony in Blue',
-    description: 'Oil on Canvas, 2023',
+    title: 'Painted Eyes',
+    description: 'Digital Portrait, 2023',
     image: 'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?auto=format&fit=crop&w=800&q=80',
     type: 'image',
     forSale: true,
   },
   {
     id: 4,
-    title: 'Urban Sketches',
-    description: 'Pen and Ink, 2024',
+    title: 'Colorful Face Study',
+    description: 'Digital Art, 2024',
     image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800&q=80',
     type: 'image',
     forSale: true,
   },
   {
     id: 5,
-    title: 'Digital Dreams',
+    title: 'Pop Art Portrait',
     description: 'Digital Art, 2023',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
     type: 'image',
@@ -48,8 +47,8 @@ const portfolioItems = [
   },
   {
     id: 6,
-    title: 'Animation Loop: Nature',
-    description: 'Motion Graphics, 2024',
+    title: 'Digital Character Art',
+    description: 'Character Design, 2024',
     image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800&q=80',
     type: 'video',
     videoUrl: '#',
@@ -89,9 +88,9 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="section-container">
       <div className="text-center mb-16">
-        <h2 className="font-serif text-4xl font-bold">My Portfolio</h2>
+        <h2 className="font-serif text-4xl font-bold">Featured Artwork</h2>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Explore my creative works spanning traditional art, digital illustrations, and animations.
+          A showcase of digital portraits, character designs, and traditional artwork created with passion and precision.
         </p>
       </div>
 

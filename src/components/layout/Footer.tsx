@@ -12,17 +12,17 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-serif mb-4">Nix Fine Arts</h3>
             <p className="text-muted-foreground max-w-md">
-              Art, Animation, and Inspiration from Trivandrum, India.
+              Digital Art, Character Design, and Portraits from Trivandrum, India.
             </p>
             <div className="flex items-center space-x-3 mt-4">
               <SocialButton
                 type="instagram"
-                href="https://instagram.com/NixFineArts"
+                href="https://www.instagram.com/nix_fine_arts"
                 size={32}
               />
               <SocialButton
                 type="whatsapp"
-                href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in your art/classes!")}`}
+                href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in your art!")}`}
                 size={32}
               />
             </div>
@@ -52,10 +52,10 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-serif mb-4">Contact Me</h3>
             <p className="text-muted-foreground mb-3">
-              Feel free to reach out for collaborations, inquiries, or just to say hello!
+              Feel free to reach out for portrait commissions, character designs, or just to say hello!
             </p>
             <a 
-              href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in connecting with you!")}`}
+              href={`https://wa.me/911234567890?text=${encodeURIComponent("Hi, I'm interested in commissioning some artwork!")}`}
               className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded font-medium hover:bg-primary/90 transition-colors"
             >
               Contact Me

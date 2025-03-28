@@ -33,7 +33,7 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center py-24 px-4 overflow-hidden" 
       style={{ 
-        backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.9)), url("https://images.unsplash.com/photo-1500673922987-e212871fec22?auto=format&fit=crop&w=1600&q=80")',
+        backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.9)), url("https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1600&q=80")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -45,13 +45,13 @@ const Hero = () => {
           Nix Fine Arts
         </h1>
         <p className="mt-6 text-xl md:text-2xl leading-relaxed max-w-2xl mx-auto animate-fade-in">
-          Art, Animation, and Inspiration from Trivandrum, India
+          Digital Art, Character Design, and Portraits from Trivandrum, India
         </p>
         
         <div className="mt-8 flex items-center justify-center space-x-4 animate-slide-up">
           <SocialButton
             type="instagram"
-            href="https://instagram.com/NixFineArts"
+            href="https://www.instagram.com/nix_fine_arts"
             size={40}
           />
           <SocialButton
