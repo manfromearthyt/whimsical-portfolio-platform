@@ -138,19 +138,48 @@ export default function AdminDashboard() {
     }
     
     try {
-      const { data, error } = await supabase.auth.admin.getUserByEmail(adminEmail);
-      
-      if (error || !data.user) {
-        throw new Error("User not found with that email address");
+      // First find the user by email
+      const { data, error } = await supabase
+        .from('auth')
+        .select('id')
+        .eq('email', adminEmail)
+        .single();
+        
+      if (error) {
+        // If the above approach doesn't work, try a different method
+        // For example, query all users and filter by email
+        const { data: authUsers, error: listError } = await supabase.auth.admin.listUsers();
+        
+        if (listError) throw listError;
+        
+        const user = authUsers.users.find(u => u.email === adminEmail);
+        
+        if (!user) {
+          throw new Error("User not found with that email address");
+        }
+        
+        await makeAdmin(user.id);
+        setAdminEmail('');
+        
+        toast({
+          title: "Success",
+          description: `${adminEmail} is now an admin.`,
+        });
+        
+        // Refresh the user list
+        fetchUsers();
+      } else {
+        await makeAdmin(data.id);
+        setAdminEmail('');
+        
+        toast({
+          title: "Success",
+          description: `${adminEmail} is now an admin.`,
+        });
+        
+        // Refresh the user list
+        fetchUsers();
       }
-      
-      await makeAdmin(data.user.id);
-      setAdminEmail('');
-      
-      toast({
-        title: "Success",
-        description: `${adminEmail} is now an admin.`,
-      });
     } catch (error: any) {
       toast({
         title: "Error",
