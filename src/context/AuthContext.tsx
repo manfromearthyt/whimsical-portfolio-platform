@@ -4,14 +4,19 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/components/ui/use-toast';
 
+type UserRole = 'user' | 'admin';
+
 type AuthContextType = {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
+  isAdmin: boolean;
+  userRole: UserRole | null;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
+  setUserAsAdmin: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,13 +25,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState<UserRole | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
+
+  const fetchUserRole = async (userId: string) => {
+    if (!userId) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .single();
+      
+      if (error) {
+        console.error('Error fetching user role:', error);
+        return;
+      }
+      
+      setUserRole(data.role as UserRole);
+      setIsAdmin(data.role === 'admin');
+    } catch (error) {
+      console.error('Error in fetchUserRole:', error);
+    }
+  };
 
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        fetchUserRole(session.user.id);
+      }
+      
       setIsLoading(false);
     });
 
@@ -35,6 +69,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          fetchUserRole(session.user.id);
+        } else {
+          setUserRole(null);
+          setIsAdmin(false);
+        }
+        
         setIsLoading(false);
       }
     );
@@ -124,14 +166,47 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const setUserAsAdmin = async () => {
+    if (!user) return;
+    
+    try {
+      setIsLoading(true);
+      const { error } = await supabase
+        .from('user_roles')
+        .update({ role: 'admin' })
+        .eq('user_id', user.id);
+      
+      if (error) throw error;
+      
+      setUserRole('admin');
+      setIsAdmin(true);
+      
+      toast({
+        title: "Admin access granted",
+        description: "You now have admin privileges.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error granting admin access",
+        description: error.message || "There was a problem updating your role.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const value = {
     user,
     session,
     isLoading,
+    isAdmin,
+    userRole,
     signIn,
     signUp,
     signOut,
     resetPassword,
+    setUserAsAdmin,
   };
 
   return (

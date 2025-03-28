@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, isAdmin } = useAuth();
   const navigate = useNavigate();
   
   return (
@@ -16,6 +16,24 @@ const Dashboard = () => {
           Welcome back to your personal workspace.
         </p>
       </div>
+      
+      {isAdmin && (
+        <Card className="mb-8 border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-primary">Admin Access</CardTitle>
+            <CardDescription>You have administrative privileges</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button 
+              onClick={() => navigate('/admin')}
+              variant="default" 
+              className="w-full"
+            >
+              Go to Admin Panel
+            </Button>
+          </CardContent>
+        </Card>
+      )}
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>

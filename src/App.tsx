@@ -14,7 +14,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
+import AdminLayout from "./components/admin/AdminLayout";
 import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,7 +46,13 @@ const App = () => (
             </Route>
             
             {/* Admin Routes */}
-            <Route path="/admin" element={<Navigate to="/dashboard" replace />} />
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/users" element={<Admin />} />
+              <Route path="/admin/products" element={<Admin />} />
+              <Route path="/admin/events" element={<Admin />} />
+              <Route path="/admin/settings" element={<Admin />} />
+            </Route>
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
